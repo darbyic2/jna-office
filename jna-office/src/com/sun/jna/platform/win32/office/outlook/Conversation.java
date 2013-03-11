@@ -26,9 +26,9 @@ public class Conversation extends BaseOutlookObject {
 		return invoke("GetAlwaysAssignCategories", newVariant(store.getIDispatch())).getValue().toString();
 	}
 	
-	public AlwaysDeleteOption getAlwaysDelete(Store store) {
+	public AlwaysDeleteConversation getAlwaysDelete(Store store) {
 		
-		return AlwaysDeleteOption.parse(((LONG) invoke("GetAlwaysDelete", newVariant(store.getIDispatch())).getValue()).shortValue());
+		return AlwaysDeleteConversation.parse(((LONG) invoke("GetAlwaysDelete", newVariant(store.getIDispatch())).getValue()).shortValue());
 	}
 	
 	public Folder getAlwaysMoveToFolder(Store store) {
@@ -101,7 +101,7 @@ public class Conversation extends BaseOutlookObject {
 		invokeNoReply("SetAlwaysAssignCategories", newVariant(categories), newVariant(store.getIDispatch()));
 	}
 	
-	public void setAlwaysDelete(AlwaysDeleteOption option, Store store) {
+	public void setAlwaysDelete(AlwaysDeleteConversation option, Store store) {
 		
 		invokeNoReply("SetAlwaysDelete", newVariant(option.value()), newVariant(store.getIDispatch()));
 	}

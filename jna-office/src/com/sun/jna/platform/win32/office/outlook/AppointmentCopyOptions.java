@@ -14,75 +14,76 @@
 package com.sun.jna.platform.win32.office.outlook;
 
 /**
- * Identifies where an Action is displayed as an available action. Type-safe
- * representation of the Outlook model olActionShowOn enum.
+ * Specifies what actions to take when copying an AppointmentItem object to a
+ * folder.
+ * <p>
+ * Added in Outlook 2010.
+ * </p>
  * 
  * @author Ian Darby
  * 
- * @see {@link Action}
- * @see {@link AbstractEnum}
+ * @see {@link AppointmentItem}
  */
-public class ActionShowOn extends AbstractEnum {
+public class AppointmentCopyOptions extends AbstractEnum {
 	
 	/**
-	 * Indicates that the action will not be displayed on the menu or toolbar.
+	 * Copies the appointment to the destination folder and prompts the user to
+	 * accept the request before completing the copy operation.
 	 */
-	public final static ActionShowOn	olDontShow		= new ActionShowOn(0, "olDontShow");  
+	public final static AppointmentCopyOptions olPromptUser = new AppointmentCopyOptions(0, "olPromptUser");
 	
 	/**
-	 * Indicates that the action will be displayed as an available action on the
-	 * menu.
+	 * Creates an appointment in the destination folder without defaulting to a
+	 * response or prompting for a response.
 	 */
-	public final static ActionShowOn	olMenu			= new ActionShowOn(1, "olMenu");  
+	public final static AppointmentCopyOptions olCreateAppointment = new AppointmentCopyOptions(1, "olCreateAppointment");
 	
 	/**
-	 * Indicates that the action will be displayed as an available action on the
-	 * menu and the toolbar.
+	 * Creates an appointment in the destination folder and accepts the meeting
+	 * request automatically.
 	 */
-	public final static ActionShowOn	olMenuAndToolbar = new ActionShowOn(2, "olMenuAndToolbar");  
+	public final static AppointmentCopyOptions olCopyAsAccept = new AppointmentCopyOptions(2, "olCopyAsAccept");
 
 	/**
 	 * One and only constructor. Scope is private to prevent the creation of
 	 * anything other than the built-in constant instances.
 	 * 
-	 * @param typ
+	 * @param val
 	 *            numeric value used to represent the enum in external storage.
 	 * 
 	 * @param name
 	 *            constant name given to the enum.
-	 * 
-	 * @see {@link Action}
 	 */
-	private ActionShowOn(int typ, String name) {
-		super((short) typ, name);
+	private AppointmentCopyOptions(int val, String name) {
+		super((short) val, name);
 	}
-
+	
 	/**
 	 * Converts an external storage numeric representation in to one of the
 	 * built-in constant objects. Unrecognised external values cause a
 	 * {@link RuntimeException} to be thrown.
 	 * 
-	 * @param style
+	 * @param val
 	 *            external numeric representation.
 	 * 
 	 * @return one of the built-in constant objects that represents the enum in
 	 *         a type-safe way.
 	 */
-	public static ActionShowOn parse(short style) {
+	public static AppointmentCopyOptions parse(short val) {
 		
-		switch(style) {
+		switch(val) {
 		
 		case 0:
-			return olDontShow;
+			return olPromptUser;
 			
 		case 1:
-			return olMenu;
-		
+			return olCreateAppointment;
+			
 		case 2:
-			return olMenuAndToolbar;
+			return olCopyAsAccept;
 			
 		default:
-			throw new RuntimeException("ActionShowOn Enum: " + style + " not recognised.");
+			throw new RuntimeException("AppointmentCopyOption Enum: " + val + " not recognised.");
 		}
 	}
 }
