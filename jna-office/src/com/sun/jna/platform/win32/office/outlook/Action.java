@@ -167,6 +167,9 @@ public class Action extends BaseOutlookObject {
 		case ClassEnum.olRemote:
 			return new RemoteItem(iDisp);
 			
+		case ClassEnum.olReport:
+			return new ReportItem(iDisp);
+			
 		case ClassEnum.olSharing:
 			return new SharingItem(iDisp);
 			
@@ -189,7 +192,6 @@ public class Action extends BaseOutlookObject {
 		case ClassEnum.olMeetingResponseNegative:
 		case ClassEnum.olMeetingResponsePositive:
 		case ClassEnum.olMeetingResponseTentative:
-		case ClassEnum.olReport:
 		default:
 			throw new RuntimeException(
 					"Action.execute() not yet implemented for class ID: "

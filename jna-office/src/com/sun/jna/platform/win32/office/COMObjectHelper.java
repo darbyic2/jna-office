@@ -1,3 +1,16 @@
+/* Copyright (c) 2013 Ian Darby, All Rights Reserved
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.  
+ */
+
 package com.sun.jna.platform.win32.office;
 
 import java.util.Date;
@@ -21,16 +34,23 @@ public class COMObjectHelper extends COMObject {
 
 	protected static Date convertFromCOMDate(VARIANT comDate) {
 		
-		double doubleDate = ((DATE) comDate.getValue()).date;
-		long longDate = (long) doubleDate;
-		
-		double doubleTime = doubleDate - ((double) longDate);
-		long longTime = (long) (doubleTime * ((double) MS_PER_DAY));
-		
-		return new Date(((longDate  - COM_DAYS_ADJUSTMENT) * MS_PER_DAY) + longTime);
+		if (comDate == null || comDate.getVarType().intValue() != Variant.VT_DATE) {
+			
+			return null;
+			
+		} else {
+			double doubleDate = ((DATE) comDate.getValue()).date;
+			long longDate = (long) doubleDate;
+			
+			double doubleTime = doubleDate - ((double) longDate);
+			long longTime = (long) (doubleTime * ((double) MS_PER_DAY));
+			
+			return new Date(((longDate  - COM_DAYS_ADJUSTMENT) * MS_PER_DAY) + longTime);
+		}
 	}
 	
 	protected static VARIANT convertToCOMDate(Date javaDate) {
+		
 		long longTime = javaDate.getTime() % MS_PER_DAY;
 		long longDate = ((javaDate.getTime() - longTime) / MS_PER_DAY) + COM_DAYS_ADJUSTMENT;
 		
