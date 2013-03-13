@@ -16,6 +16,7 @@ import com.sun.jna.Native;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Guid;
 import com.sun.jna.platform.win32.Guid.CLSID;
+import com.sun.jna.platform.win32.Guid.GUID;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.OaIdl;
 import com.sun.jna.platform.win32.OaIdl.DISPID;
@@ -109,7 +110,7 @@ public class COMObject {
 
 		if (COMUtils.FAILED(hr)) {
 			throw new COMException("COM object '" + progId
-					+ "' not registered properly!");
+					+ "' and CLSID " + clsid.toGuidString() + "' not registered properly!");
 		}
 
 		this.iDispatch = new IDispatch(this.pDispatch.getValue());
