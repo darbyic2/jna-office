@@ -36,6 +36,9 @@ import com.sun.jna.platform.win32.COM.IDispatch;
  * 
  * @author Ian Darby
  * 
+ * @see BaseOutlookObject
+ * @see BaseItemLevel1
+ * @see BaseItemLevel2
  */
 public class AppointmentItem extends BaseItemLevel2 {
 
